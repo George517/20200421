@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./6.css">
+</head>
+
+<body>
+    <div id="box">
+        <!-- 可视窗口 -->
+        <ul class='list'>
+            <!-- ul 是一个长条 -->
+            <li>
+                <img src="./img/1.jpg" alt="">
+            </li>
+            <li>
+                <img src="./img/2.jpg" alt="">
+            </li>
+            <li>
+                <img src="./img/3.jpg" alt="">
+            </li>
+            <li>
+                <img src="./img/4.jpg" alt="">
+            </li>
+            <li>
+                <img src="./img/5.png" alt="">
+            </li>
+            <li>
+                <img src="./img/1.jpg" alt="">
+            </li>
+        </ul>
+        <div class="btn_box">
+            <div class="left_btn">&lt;</div>
+            <div class="right_btn">&gt;</div>
+        </div>
+    </div>
+
+    <script>
+        let box = document.querySelector('#box');
+        let left_Btn = document.querySelector('.left_btn');
+        let right_Btn = document.querySelector('.right_btn');
+        let ul = document.querySelector('ul');
+        let start = 0;
+        let timer = null;
+        function move() {
+            timer = setInterval(() => {
+                start -= 600;
+                if (start < -3000) {
+                    start = 0;
+                    ul.style.transition = 'none';
+                    ul.style.transform = `translateX(${start}px)`;
+                    // 读写分离
+                    let l = ul.offsetLeft;
+                    start -= 600;
+                    ul.style.transition = 'all 0.5s';
+                } else {
+                    ul.style.transition = 'all 0.5s';
+                }
+                ul.style.transform = `translateX(${start}px)`;
+            }, 2000);
+        }
+        move();
+        box.onmouseenter = function () {
+            clearInterval(timer);
+        }
+        //离开盒子 重启定时器
+        box.onmouseleave = function () {
+            move();
+        }
+
+        left_Btn.onclick = function () {
+            start -= 600;
+                if (start < -3000) {
+                    start = 0;
+                    ul.style.transition = 'none';
+                    ul.style.transform = `translateX(${start}px)`;
+                    // 读写分离
+                    let l = ul.offsetLeft;
+                    start -= 600;
+                    ul.style.transition = 'all 0.5s';
+                } else {
+                    ul.style.transition = 'all 0.5s';
+                }
+                ul.style.transform = `translateX(${start}px)`;
+        }
+
+        right_Btn.onclick = function () {
+            start += 600;
+                if (start > 0) {
+                    start = -3000;
+                    ul.style.transition = 'none';
+                    ul.style.transform = `translateX(${start}px)`;
+                    // 读写分离
+                    let l = ul.offsetLeft;
+                    start += 600;
+                    ul.style.transition = 'all 0.5s';
+                } else {
+                    ul.style.transition = 'all 0.5s';
+                }
+                ul.style.transform = `translateX(${start}px)`;
+        }
+
+        // if(start===-600*4){
+            //     start=0;
+            //     ul.style.transform=`translateX(${0}px)`;
+            // }
+
+        /*  let start = parseFloat(getComputedStyle(ul).left);
+         ul.style.left=start-600+'px'; */
+    </script>
+</body>
+
+</html>
